@@ -4,6 +4,6 @@ import MainComponent from './pages/Main.vue'
 
 export const routes: RouteRecordRaw[] = [
     {path: '/', component: LoginComponent},
-    {path: '/main', component: MainComponent},
+    {path: '/main/:appId', component: MainComponent},
 ]
 

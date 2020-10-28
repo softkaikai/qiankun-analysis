@@ -24,7 +24,7 @@
         },
         methods: {
             login(): void {
-                this.$router.push('/main')
+                this.$router.push('/main/emptyPage')
             }
         }
     })

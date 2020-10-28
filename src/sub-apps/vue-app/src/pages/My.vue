@@ -2,11 +2,13 @@
     <div>this is My Page</div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue'
     export default defineComponent(
         {
-            name: "My"
+            name: "My",
+            methods: {
+            }
         }
     )
 </script>

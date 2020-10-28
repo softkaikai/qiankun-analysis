@@ -2,7 +2,7 @@
     <div>this is Contract Page</div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue'
     export default defineComponent(
         {

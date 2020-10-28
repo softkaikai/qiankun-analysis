@@ -12,6 +12,7 @@
         </div>
         <div class="content">
             <h3 class="app-title">{{activeApp}}</h3>
+            <div id="subAppContainer"></div>
         </div>
     </div>
 </template>
@@ -32,8 +33,8 @@
         data() {
             return {
                 apps: [
-                    {name: 'vue-app', active: true},
-                    {name: 'react-app', active: false},
+                    {name: 'vue-app', router: '/main/vueApp', active: true},
+                    {name: 'react-app', router: '/main/reactApp', active: false},
                 ]
             }
         },
@@ -41,6 +42,9 @@
             selectApp(index: number): void {
                 this.apps.forEach((app, appIndex) => {
                     app.active = index === appIndex;
+                    if (index === appIndex) {
+                        this.$router.push(app.router);
+                    }
                 })
             }
         }

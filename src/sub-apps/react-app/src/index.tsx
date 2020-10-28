@@ -4,14 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+interface Props {
+    container: string
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export async function bootstrap(props: any) {
+    console.log('react app bootstrap', props);
+}
+
+export async function mount(props: Props) {
+    console.log('react app mount');
+    ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        document.getElementById(props.container ? props.container : 'root')
+    );
+    reportWebVitals();
+}
+
+export async function unmount(props: Props) {
+    console.log('react app unmount');
+    ReactDOM.unmountComponentAtNode(document.getElementById(props.container ? props.container : 'root') as Element);
+}
+
+export async function update(props: any) {
+    console.log('react app update props：', props);
+}
