@@ -38,12 +38,18 @@
                 ]
             }
         },
+        mounted() {
+            window.onpopstate = function(e: any) {
+                console.log(e);
+            }
+        },
         methods: {
             selectApp(index: number): void {
                 this.apps.forEach((app, appIndex) => {
                     app.active = index === appIndex;
                     if (index === appIndex) {
-                        this.$router.push(app.router);
+                        window.history.pushState({}, '', app.router);
+                        // this.$router.push(app.router);
                     }
                 })
             }

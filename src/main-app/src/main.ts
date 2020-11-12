@@ -1,30 +1,40 @@
 import { createApp, App } from 'vue'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import AppComponent from './App.vue'
 import { routes } from './router'
 import { registerMicroApps, start } from 'qiankun'
 
 const app: App = createApp(AppComponent)
 const router = createRouter({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes,
 })
 
+const ruler = function(app: string) {
+    return (location: {href: string}) => location.href.includes(`${app}`);
+}
+
 app.use(router)
-app.mount('#app')
-registerMicroApps([
+app.mount('#mainApp')
+registerMicroApps(
+    [
+        {
+            name: 'react app',
+            entry: '//localhost:8092',
+            container: '#subAppContainer',
+            activeRule: ruler('reactApp'),
+        },
+        {
+            name: 'vue app',
+            entry: '//localhost:8091',
+            container: '#subAppContainer',
+            activeRule: ruler('vueApp'),
+        },
+    ],
     {
-        name: 'react app',
-        entry: './subCompiledApps/react-app/static/js/main.55167ce8.chunk.js',
-        container: '#subAppContainer',
-        activeRule: '/reactApp',
-    },
-    {
-        name: 'vue app',
-        entry: './subCompiledApps/vue-app/js/app.d972cee9.js',
-        container: '#subAppContainer',
-        activeRule: '/vueApp',
-    },
-])
+        async beforeLoad(app) {
+            console.log('app: ', app);
+        }
+    })
 
 start();

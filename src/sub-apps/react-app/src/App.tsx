@@ -11,9 +11,13 @@ import English from './pages/English'
 import History from './pages/History'
 import Chemistry from "./pages/Chemistry"
 
+declare global {
+    interface Window { __POWERED_BY_QIANKUN__: any; }
+}
+
 function App() {
     return (
-        <Router>
+        <Router basename={window.__POWERED_BY_QIANKUN__ ? '/main/reactApp' : '/'}>
             <div>
                 <p>this is react-app</p>
                 <ul>

@@ -1,8 +1,30 @@
-const packageName = require('./package.json').name;
+const {
+    override,
+    overrideDevServer,
+} = require("customize-cra");
+const { name } = require('./package');
 
-module.exports = function override(config, env) {
-    config.output.library = `${packageName}-[name]`;
-    config.output.libraryTarget = `umd`;
-    config.output.jsonpFunction = `webpackJsonp_${packageName}`;
+const devServerConfig = () => config => {
+    config.headers = {
+        'Access-Control-Allow-Origin': '*',
+    }
+
+    return config;
+};
+const webpackConfig = () => config => {
+    config.output.library = `${name}-[name]`;
+    config.output.libraryTarget = 'umd';
+    config.output.jsonpFunction = `webpackJsonp_${name}`;
+    config.output.globalObject = `window`;
+
     return config;
 }
+
+module.exports = {
+    webpack: override(
+        webpackConfig()
+    ),
+    devServer: overrideDevServer(
+        devServerConfig()
+    )
+};
